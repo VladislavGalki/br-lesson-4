@@ -29,7 +29,7 @@ func (s *ToDoAPI) getTask(ctx *gin.Context) {
 
 func (s *ToDoAPI) addTask(ctx *gin.Context) {
 	var task taskDomain.Task
-	if err := ctx.ShouldBindJSON(&task); err != nil {
+	if err := ctx.BindJSON(&task); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -46,7 +46,7 @@ func (s *ToDoAPI) addTask(ctx *gin.Context) {
 func (s *ToDoAPI) updateTask(ctx *gin.Context) {
 	id := ctx.Param("id")
 	var task taskDomain.Task
-	if err := ctx.ShouldBindJSON(&task); err != nil {
+	if err := ctx.BindJSON(&task); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

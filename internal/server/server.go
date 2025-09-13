@@ -2,6 +2,7 @@ package server
 
 import (
 	taskDomain "br-lesson-4/internal/domain/task/models"
+	userDomain "br-lesson-4/internal/domain/user/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -14,8 +15,17 @@ type TaskStorage interface {
 	DeleteTask(id string) error
 }
 
+type UserStorage interface {
+	GetUserList() ([]userDomain.User, error)
+	GetUseByID(string) (userDomain.User, error)
+	CreateUser(domainTask userDomain.User) (userDomain.User, error)
+	UpdateUser(id string, domainTask userDomain.User) (userDomain.User, error)
+	DeleteUser(id string) error
+}
+
 type Storage interface {
 	TaskStorage
+	UserStorage
 }
 
 type ToDoAPI struct {
@@ -56,5 +66,11 @@ func (s *ToDoAPI) configRouter() {
 	tasks.PUT("/update-task/:id", s.updateTask)
 	tasks.DELETE("/delete-task/:id", s.deleteTask)
 
+	users := router.Group("/users")
+	users.GET("/user-list", s.GetUserList)
+	users.GET("/user/:id", s.GetUserById)
+	users.POST("/create-user", s.CreateUser)
+	users.PUT("/update-user/:id", s.UpdateUser)
+	users.DELETE("/delete-user/:id", s.DeleteUser)
 	s.srv.Handler = router
 }

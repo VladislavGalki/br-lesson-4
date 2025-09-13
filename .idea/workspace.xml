@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f615d54-ac4a-4dc3-8f1c-39c8665f36ae" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/internal/repository/inmemory/taskStorage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/inmemory/taskStorage.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/domain/user/errors/userError.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/domain/user/models/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/repository/inmemory/userStorage.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/server/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/inmemory/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/inmemory/storage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/server/tasks.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/tasks.go" afterDir="false" />
     </list>
