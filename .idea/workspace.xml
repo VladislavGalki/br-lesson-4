@@ -5,14 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f615d54-ac4a-4dc3-8f1c-39c8665f36ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/domain/user/errors/userError.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/domain/user/models/user.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/repository/inmemory/userStorage.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/server/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/server/auth/jwt.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/server/auth/valid.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/server/middleware/middleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/inmemory/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/inmemory/storage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/domain/user/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/domain/user/models/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/inmemory/userStorage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/inmemory/userStorage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/server/tasks.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/tasks.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/server/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +43,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "Go Build.go build br-lesson-4/cmd.executor": "Run",
+    "Go Build.go build br-lesson-4/cmd.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.GoLinterPluginOnboarding": "true",
     "RunOnceActivity.GoLinterPluginStorageMigration": "true",
@@ -105,5 +107,21 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/server/middleware/middleware.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/server/middleware/middleware.go</url>
+          <line>20</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

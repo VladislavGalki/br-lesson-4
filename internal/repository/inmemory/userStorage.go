@@ -55,3 +55,13 @@ func (storage *Storage) DeleteUser(id string) error {
 
 	return userError.UserNotFoundError
 }
+
+func (storage *Storage) LoginUser(userRequest userDomain.UserRequest) (userDomain.User, error) {
+	for _, user := range storage.users {
+		if user.Email == userRequest.Email {
+			return user, nil
+		}
+	}
+
+	return userDomain.User{}, userError.UserNotFoundError
+}

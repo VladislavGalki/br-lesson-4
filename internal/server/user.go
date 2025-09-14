@@ -75,3 +75,53 @@ func (s *ToDoAPI) DeleteUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"user": nil})
 	return
 }
+
+func (s *ToDoAPI) LoginUser(ctx *gin.Context) {
+	var userRequest userDomain.UserRequest
+	if err := ctx.BindJSON(&userRequest); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
+
+	user, err := s.storage.LoginUser(userRequest)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	token, err := s.jwtSigner.NewAccessToken(user.Id)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	refreshToken, err := s.jwtSigner.NewRefreshToken(user.Id)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.SetCookie("refresh_token", refreshToken, 3600*24*7, "/", "localhost", false, true)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"accessToken": token,
+	})
+	return
+}
+
+func (s *ToDoAPI) ProfileUser(ctx *gin.Context) {
+	userId, exists := ctx.Get("userID")
+
+	if !exists {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "userId is required"})
+		return
+	}
+
+	user, err := s.storage.GetUseByID(userId.(string))
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"user": user})
+	return
+}

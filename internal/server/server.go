@@ -3,8 +3,12 @@ package server
 import (
 	taskDomain "br-lesson-4/internal/domain/task/models"
 	userDomain "br-lesson-4/internal/domain/user/models"
+	"br-lesson-4/internal/server/auth"
+	"br-lesson-4/internal/server/middleware"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"net/http"
+	"time"
 )
 
 type TaskStorage interface {
@@ -21,6 +25,7 @@ type UserStorage interface {
 	CreateUser(domainTask userDomain.User) (userDomain.User, error)
 	UpdateUser(id string, domainTask userDomain.User) (userDomain.User, error)
 	DeleteUser(id string) error
+	LoginUser(userRequest userDomain.UserRequest) (userDomain.User, error)
 }
 
 type Storage interface {
@@ -29,18 +34,28 @@ type Storage interface {
 }
 
 type ToDoAPI struct {
-	srv     *http.Server
-	storage Storage
+	srv       *http.Server
+	storage   Storage
+	jwtSigner auth.HS256Signer
 }
 
 func NewToDoServer(storage Storage) *ToDoAPI {
+	jwtSigner := auth.HS256Signer{
+		Secret:     []byte(uuid.NewString()),
+		Issuer:     "task-service",
+		Audience:   "task-client",
+		AccessTTL:  15 * time.Minute,
+		RefreshTTL: 24 * 7 * time.Hour,
+	}
+
 	httpServer := http.Server{
 		Addr: "localhost:8080",
 	}
 
 	api := ToDoAPI{
-		srv:     &httpServer,
-		storage: storage,
+		srv:       &httpServer,
+		storage:   storage,
+		jwtSigner: jwtSigner,
 	}
 
 	api.configRouter()
@@ -59,18 +74,21 @@ func (s *ToDoAPI) Stop() error {
 func (s *ToDoAPI) configRouter() {
 	router := gin.Default()
 
+	router.POST("/login", s.LoginUser)
+	router.GET("/profile", middleware.AuthMiddleware(s.jwtSigner), s.ProfileUser)
+
 	tasks := router.Group("/tasks")
 	tasks.GET("/list", s.getTaskList)
 	tasks.GET("/task/:id", s.getTask)
-	tasks.POST("/add-task", s.addTask)
-	tasks.PUT("/update-task/:id", s.updateTask)
-	tasks.DELETE("/delete-task/:id", s.deleteTask)
+	tasks.POST("/add-task", middleware.AuthMiddleware(s.jwtSigner), s.addTask)
+	tasks.PUT("/update-task/:id", middleware.AuthMiddleware(s.jwtSigner), s.updateTask)
+	tasks.DELETE("/delete-task/:id", middleware.AuthMiddleware(s.jwtSigner), s.deleteTask)
 
 	users := router.Group("/users")
 	users.GET("/user-list", s.GetUserList)
 	users.GET("/user/:id", s.GetUserById)
 	users.POST("/create-user", s.CreateUser)
-	users.PUT("/update-user/:id", s.UpdateUser)
-	users.DELETE("/delete-user/:id", s.DeleteUser)
+	users.PUT("/update-user/:id", middleware.AuthMiddleware(s.jwtSigner), s.UpdateUser)
+	users.DELETE("/delete-user/:id", middleware.AuthMiddleware(s.jwtSigner), s.DeleteUser)
 	s.srv.Handler = router
 }
