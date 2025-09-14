@@ -76,6 +76,7 @@ func (s *ToDoAPI) configRouter() {
 
 	router.POST("/login", s.LoginUser)
 	router.GET("/profile", middleware.AuthMiddleware(s.jwtSigner), s.ProfileUser)
+	router.POST("/refresh", s.refresh)
 
 	tasks := router.Group("/tasks")
 	tasks.GET("/list", s.getTaskList)
@@ -91,4 +92,38 @@ func (s *ToDoAPI) configRouter() {
 	users.PUT("/update-user/:id", middleware.AuthMiddleware(s.jwtSigner), s.UpdateUser)
 	users.DELETE("/delete-user/:id", middleware.AuthMiddleware(s.jwtSigner), s.DeleteUser)
 	s.srv.Handler = router
+}
+
+func (s *ToDoAPI) refresh(c *gin.Context) {
+	refreshToken, err := c.Cookie("refresh_token")
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		return
+	}
+
+	claims, err := s.jwtSigner.ParseRefreshToken(refreshToken, auth.ParseOptions{
+		ExpectedIssuer:   s.jwtSigner.Issuer,
+		ExpectedAudience: s.jwtSigner.Audience,
+		AllowedMethods:   []string{"HS256"},
+		Leeway:           60 * time.Second,
+	})
+
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		return
+	}
+
+	access, err := s.jwtSigner.NewAccessToken(claims.Subject)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	newRefresh, err := s.jwtSigner.NewRefreshToken(claims.Subject)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.SetCookie("refresh_token", newRefresh, 3600*24*7, "/", "localhost", false, true)
+	c.JSON(http.StatusOK, gin.H{"access": access})
 }

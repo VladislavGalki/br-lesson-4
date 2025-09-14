@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f615d54-ac4a-4dc3-8f1c-39c8665f36ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/server/auth/jwt.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/server/auth/valid.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/server/middleware/middleware.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/domain/user/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/domain/user/models/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/inmemory/userStorage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/inmemory/userStorage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/server/auth/valid.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/auth/valid.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/server/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,14 +105,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/server/middleware/middleware.go</url>
-          <line>27</line>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/internal/server/server.go</url>
+          <line>97</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/server/middleware/middleware.go</url>
-          <line>20</line>
-          <option name="timeStamp" value="21" />
+          <url>file://$PROJECT_DIR$/internal/server/server.go</url>
+          <line>98</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

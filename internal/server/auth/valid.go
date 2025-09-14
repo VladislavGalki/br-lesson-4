@@ -43,3 +43,29 @@ func (s HS256Signer) ParseAccessToken(tokenStr string, opt ParseOptions) (*Claim
 
 	return claims, nil
 }
+
+func (s HS256Signer) ParseRefreshToken(tokenStr string, opt ParseOptions) (*jwt.RegisteredClaims, error) {
+	claims := &jwt.RegisteredClaims{}
+
+	tkn, err := jwt.ParseWithClaims(
+		tokenStr,
+		claims,
+		func(t *jwt.Token) (any, error) {
+			return s.Secret, nil
+		},
+		jwt.WithIssuer(opt.ExpectedIssuer),
+		jwt.WithAudience(opt.ExpectedAudience),
+		jwt.WithValidMethods(opt.AllowedMethods),
+		jwt.WithLeeway(opt.Leeway),
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if !tkn.Valid {
+		return nil, fmt.Errorf("refresh is invalid")
+	}
+
+	return claims, nil
+}
