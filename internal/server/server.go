@@ -1,10 +1,12 @@
 package server
 
 import (
+	"br-lesson-4/internal"
 	taskDomain "br-lesson-4/internal/domain/task/models"
 	userDomain "br-lesson-4/internal/domain/user/models"
 	"br-lesson-4/internal/server/auth"
 	"br-lesson-4/internal/server/middleware"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"net/http"
@@ -39,7 +41,7 @@ type ToDoAPI struct {
 	jwtSigner auth.HS256Signer
 }
 
-func NewToDoServer(storage Storage) *ToDoAPI {
+func NewToDoServer(config internal.Config, storage Storage) *ToDoAPI {
 	jwtSigner := auth.HS256Signer{
 		Secret:     []byte(uuid.NewString()),
 		Issuer:     "task-service",
@@ -49,7 +51,7 @@ func NewToDoServer(storage Storage) *ToDoAPI {
 	}
 
 	httpServer := http.Server{
-		Addr: "localhost:8080",
+		Addr: fmt.Sprintf("%s:%d", config.Host, config.Port),
 	}
 
 	api := ToDoAPI{

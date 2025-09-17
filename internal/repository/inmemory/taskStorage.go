@@ -3,6 +3,7 @@ package inmemory
 import (
 	taskError "br-lesson-4/internal/domain/task/errors"
 	taskDomain "br-lesson-4/internal/domain/task/models"
+	"github.com/google/uuid"
 )
 
 func (storage *Storage) GetTasksList() ([]taskDomain.Task, error) {
@@ -34,6 +35,7 @@ func (storage *Storage) CreateTask(domainTask taskDomain.Task) (taskDomain.Task,
 		}
 	}
 
+	domainTask.Id = uuid.NewString()
 	storage.tasks = append(storage.tasks, domainTask)
 	return domainTask, nil
 }

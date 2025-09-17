@@ -3,6 +3,8 @@ package inmemory
 import (
 	userError "br-lesson-4/internal/domain/user/errors"
 	userDomain "br-lesson-4/internal/domain/user/models"
+	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func (storage *Storage) GetUserList() ([]userDomain.User, error) {
@@ -30,6 +32,13 @@ func (storage *Storage) CreateUser(domainUser userDomain.User) (userDomain.User,
 		}
 	}
 
+	hash, err := bcrypt.GenerateFromPassword([]byte(domainUser.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return userDomain.User{}, err
+	}
+
+	domainUser.Id = uuid.NewString()
+	domainUser.Password = string(hash)
 	storage.users = append(storage.users, domainUser)
 	return domainUser, nil
 }
@@ -59,7 +68,11 @@ func (storage *Storage) DeleteUser(id string) error {
 func (storage *Storage) LoginUser(userRequest userDomain.UserRequest) (userDomain.User, error) {
 	for _, user := range storage.users {
 		if user.Email == userRequest.Email {
-			return user, nil
+			if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(userRequest.Password)); err == nil {
+				return user, nil
+			}
+
+			return userDomain.User{}, userError.UserNotFoundError
 		}
 	}
 
