@@ -10,7 +10,8 @@ import (
 func AuthMiddleware(jwtSigner auth.HS256Signer) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
-		if authHeader == "" {
+		_, err := c.Cookie("user_id")
+		if authHeader == "" || err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"error": "User Not Authorized",
 			})

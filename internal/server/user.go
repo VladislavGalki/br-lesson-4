@@ -82,7 +82,7 @@ func (s *ToDoAPI) LoginUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 
-	user, err := s.storage.LoginUser(userRequest)
+	user, err := s.storage.GetUser(userRequest)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -100,6 +100,7 @@ func (s *ToDoAPI) LoginUser(ctx *gin.Context) {
 		return
 	}
 
+	ctx.SetCookie("user_id", user.Id, 3600*24*7, "/", "localhost", false, true)
 	ctx.SetCookie("refresh_token", refreshToken, 3600*24*7, "/", "localhost", false, true)
 
 	ctx.JSON(http.StatusOK, gin.H{
