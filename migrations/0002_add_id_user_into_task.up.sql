@@ -1,0 +1,1 @@
+ALTER TABLE tasks ADD COLUMN userId varchar(36) NOT NULL DEFAULT 0;

@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (storage *Storage) GetTasksList() ([]taskDomain.Task, error) {
+func (storage *Storage) GetTasksList(userId string) ([]taskDomain.Task, error) {
 	if len(storage.tasks) == 0 {
 		return nil, taskError.ErrTaskListNotFound
 	}

@@ -25,6 +25,20 @@ func (storage *Storage) GetUseByID(id string) (userDomain.User, error) {
 	return userDomain.User{}, userError.UserNotFoundError
 }
 
+func (storage *Storage) GetUser(userReq userDomain.UserRequest) (userDomain.User, error) {
+	for _, user := range storage.users {
+		if user.Email == userReq.Email {
+			if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(userReq.Password)); err != nil {
+				return userDomain.User{}, userError.UserNotFoundError
+			}
+
+			return user, nil
+		}
+	}
+
+	return userDomain.User{}, userError.UserNotFoundError
+}
+
 func (storage *Storage) CreateUser(domainUser userDomain.User) (userDomain.User, error) {
 	for _, user := range storage.users {
 		if user.Id == domainUser.Id {
@@ -63,18 +77,4 @@ func (storage *Storage) DeleteUser(id string) error {
 	}
 
 	return userError.UserNotFoundError
-}
-
-func (storage *Storage) LoginUser(userRequest userDomain.UserRequest) (userDomain.User, error) {
-	for _, user := range storage.users {
-		if user.Email == userRequest.Email {
-			if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(userRequest.Password)); err == nil {
-				return user, nil
-			}
-
-			return userDomain.User{}, userError.UserNotFoundError
-		}
-	}
-
-	return userDomain.User{}, userError.UserNotFoundError
 }
