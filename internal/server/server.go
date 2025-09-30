@@ -14,7 +14,7 @@ import (
 )
 
 type TaskStorage interface {
-	GetTasksList() ([]taskDomain.Task, error)
+	GetTasksList(userId string) ([]taskDomain.Task, error)
 	GetTaskByID(string) (taskDomain.Task, error)
 	CreateTask(domainTask taskDomain.Task) (taskDomain.Task, error)
 	UpdateTask(id string, domainTask taskDomain.Task) (taskDomain.Task, error)
@@ -24,10 +24,10 @@ type TaskStorage interface {
 type UserStorage interface {
 	GetUserList() ([]userDomain.User, error)
 	GetUseByID(string) (userDomain.User, error)
-	CreateUser(domainTask userDomain.User) (userDomain.User, error)
-	UpdateUser(id string, domainTask userDomain.User) (userDomain.User, error)
+	GetUser(userReq userDomain.UserRequest) (userDomain.User, error)
+	CreateUser(domainUser userDomain.User) (userDomain.User, error)
+	UpdateUser(id string, domainUser userDomain.User) (userDomain.User, error)
 	DeleteUser(id string) error
-	LoginUser(userRequest userDomain.UserRequest) (userDomain.User, error)
 }
 
 type Storage interface {
@@ -81,8 +81,8 @@ func (s *ToDoAPI) configRouter() {
 	router.POST("/refresh", s.refresh)
 
 	tasks := router.Group("/tasks")
-	tasks.GET("/list", s.getTaskList)
-	tasks.GET("/task/:id", s.getTask)
+	tasks.GET("/list", middleware.AuthMiddleware(s.jwtSigner), s.getTaskList)
+	tasks.GET("/task/:id", middleware.AuthMiddleware(s.jwtSigner), s.getTask)
 	tasks.POST("/add-task", middleware.AuthMiddleware(s.jwtSigner), s.addTask)
 	tasks.PUT("/update-task/:id", middleware.AuthMiddleware(s.jwtSigner), s.updateTask)
 	tasks.DELETE("/delete-task/:id", middleware.AuthMiddleware(s.jwtSigner), s.deleteTask)
