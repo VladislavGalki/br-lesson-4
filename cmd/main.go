@@ -14,13 +14,13 @@ func main() {
 	var storage server.Storage
 	config := internal.ReadConfig()
 
-	storage, err := db.NewStorage(config.DSN)
+	storage, err := db.NewStorage(config.DNS)
 	if err != nil {
 		log.Println("Failed to connect to database")
 		storage = inmemory.NewInMemoryStorage()
 	}
 
-	if err := db.Migrations(config.DSN, config.MigratePath); err != nil {
+	if err := db.Migrations(config.DNS, config.MigratePath); err != nil {
 		log.Fatal(err)
 	}
 
