@@ -5,28 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f615d54-ac4a-4dc3-8f1c-39c8665f36ae" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/domain/constants.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/repository/db/dbStorage.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/repository/db/taskStorage.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/repository/db/userStorage.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/0001_init.down.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/0001_init.up.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/0002_add_id_user_into_task.down.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/migrations/0002_add_id_user_into_task.up.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/domain/task/models/task.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/domain/task/models/task.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/domain/user/errors/userError.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/domain/user/errors/userError.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/inmemory/taskStorage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/inmemory/taskStorage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/inmemory/userStorage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/inmemory/userStorage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/server/middleware/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/middleware/middleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/server/tasks.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/tasks.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/server/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Go File" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -69,7 +53,7 @@
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Add-docker",
     "go.import.settings.migrated": "true",
     "last_opened_file_path": "/Users/vagalkin",
     "node.js.detected.package.eslint": "true",
@@ -127,11 +111,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/cmd/main.go</url>
-          <line>23</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/repository/db/taskStorage.go</url>
           <line>53</line>
